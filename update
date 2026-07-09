@@ -1,0 +1,26 @@
+-- Create (Criar):
+-- Read (Ler):
+-- Update (Atualizar):
+-- Delete (Deletar)
+
+create database ivone_3A
+-- define que banco vai aceitar qualquer caractere
+default character SET utf8mb4
+-- banco vai ignorar acentos, letras maiúscula e minúsculas
+collate utf8mb4_0900_ai_ci;
+-- seleciona
+use ivone_3A;
+-- se for excluir
+drop database nome_do_banco;
+create table if not exists turma(
+id int auto_increment primary key,
+nome varchar(50),
+turno varchar (10)     
+)character set utf8mb4;
+
+create table if not exists aluno(
+   id int auto_increment primary key,
+   nome varchar (30),
+   id_turma int, 
+   foreign key (id_turma) references turma(id)
+)character set utf8mb4;
