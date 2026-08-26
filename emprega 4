@@ -1,0 +1,80 @@
+create database emprega
+default character SET utf8mb4
+ collate utf8mb4_0900_ai_ci;
+ drop database emprega;
+ use emprega;
+ create table if not exists usuario(
+ id bigint primary key auto_increment,
+ nome varchar(30),
+ email varchar(20),
+ senha varchar(20),
+ telefone varchar(10),
+ cidade varchar (30)
+ ) character set utf8mb4;
+ describe usuario;
+ 
+insert into usuario
+(nome,email,senha,telefone,cidade)
+values
+('bianca','biagmail','bibi','000000000','campo mourao'),
+('ricks','rgmail','rickk','999999999','sao paulo');
+select*from usuario;
+
+create table if not exists tabela_cliente(
+  id bigint primary key,
+  curriculo varchar (80),
+  vaga_interesse varchar(30),
+  cpf varchar(10),
+  foreign key (id) references usuario(id)
+  ) character set utf8mb4;
+  
+  insert into tabela_cliente
+  (id, curriculo, vaga_interesse, cpf)
+  values
+  (2,'hiuho','Ti','1234567890');
+  select*from tabela_cliente;
+  
+  describe tabela_cliente;
+  use emprega;
+create table if not exists tabela_empresa(
+ id bigint primary key,
+ cnpj varchar(20),
+ foreign key (id) references usuario(id)
+ )
+ 
+ insert into tabela_empresa
+ (id, cnpj)
+ value
+ ('1','0987654321');
+ select*from tabela_empresa;
+ 
+ create table if not exists vagas(
+id bigint primary key auto_increment,
+descrição varchar(80),
+condição enum ('nativo','ativo'),
+salario int,
+localização varchar(50),
+data_publicada datetime,
+id_tabela_empresa bigint,
+id_inscrição bigint,
+foreign key (id_tabela_empresa) references tabela_empresa(id)
+ ) character set utf8mb4;
+ 
+ insert into vagas
+ (descrição, condição, salario, localização, data_publicada, )
+ value
+ ('comunicativa','ativo','1400','SC','02-08-27','1','')
+ 
+create table if not exists inscricao(
+periodo date,
+situação enum ('contratado','analise','encaminhado'),
+id_vaga bigint,
+id_cliente bigint,
+foreign key (id_vaga) references vagas(id),
+foreign key (id_cliente) references tabela_cliente(id)
+)character set utf8mb4;
+describe inscrição;
+) character set utf8mb4;
+describe tabela_cliente;
+
+insert into inscricao
