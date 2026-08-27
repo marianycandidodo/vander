@@ -1,0 +1,88 @@
+create database emprega
+default character SET utf8mb4
+ collate utf8mb4_0900_ai_ci;
+ drop database emprega;
+ use emprega;
+ create table if not exists usuario(
+ id bigint primary key auto_increment,
+ nome varchar(30),
+ email varchar(20),
+ senha varchar(20),
+ telefone varchar(10),
+ cidade varchar (30)
+ ) character set utf8mb4;
+ describe usuario;
+ 
+insert into usuario
+(nome,email,senha,telefone,cidade)
+values
+('bianca','biagmail','bibi','000000000','campo mourao'),
+('Gebon','G@gmail','rickk','999999999','sao paulo');
+select*from usuario;
+
+create table if not exists tabela_cliente(
+  id bigint primary key,
+  curriculo varchar (80),
+  vaga_interesse varchar(30),
+  cpf varchar(10),
+  foreign key (id) references usuario(id)
+  ) character set utf8mb4;
+  
+  insert into tabela_cliente
+  (id, curriculo, vaga_interesse, cpf)
+  values
+  (1,'hiuho','Ti','1234567890');
+  select*from tabela_cliente;
+  
+  describe tabela_cliente;
+  use emprega;
+create table if not exists tabela_empresa(
+ id bigint primary key,
+ cnpj varchar(20),
+ foreign key (id) references usuario(id)
+ );
+ 
+ insert into tabela_empresa
+ (id, cnpj)
+ value
+ ('2','0987654321');
+ select*from tabela_empresa;
+ select usuario.nome, usuario.email, tabela_empresa.cnpj from usuario inner join tabela_empresa 
+ on usuario.id = tabela_empresa.id;
+ 
+ create table if not exists vagas(
+id bigint primary key auto_increment,
+descrição varchar(80),
+condição enum ('nativo','ativo'),
+salario int,
+localização varchar(50),
+data_publicada datetime,
+id_tabela_empresa bigint,
+foreign key (id_tabela_empresa) references tabela_empresa(id)
+ ) character set utf8mb4;
+ 
+ insert into vagas
+ (descrição, condição, salario, localização, data_publicada, id_tabela_empresa )
+ value
+ ('admin','ativo',1400,'SC','2026-08-27 22-00-00',null);
+ select*from vagas;
+ 
+create table if not exists inscricao(
+id bigint primary key  auto_increment,
+periodo date,
+situacao enum ('contratado','analise','encaminhado'),
+id_vaga bigint,
+id_cliente bigint,
+foreign key (id_vaga) references vagas(id),
+foreign key (id_cliente) references tabela_cliente(id)
+)character set utf8mb4;
+drop table inscricao;
+describe inscrição;
+
+insert into inscricao
+(periodo, situacao, id_vaga, id_cliente)
+value
+('2027-03-09','analise',null,1);
+select*from inscricao;
+
+
