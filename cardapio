@@ -1,0 +1,58 @@
+-- Create (Criar)          → Comando INSERT
+-- Read (Ler/Consultar)    → Comando SELECT
+-- Update (Atualizar/Mudar) → Comando UPDATE
+-- Delete (Excluir/Apagar) → Comando DELETE
+
+create database burguer_mariany
+default character SET utf8mb4
+collate utf8mb4_0900_ai_ci;
+use burguer_mariany;
+
+create table if not exists cardapio (
+    id int auto_increment primary key,
+    nome varchar(50),
+    categoria varchar(30),
+    preco decimal(10,2),
+    disponivel_estoque int
+) default charset = utf8mb4;
+
+insert into cardapio (nome, categoria, preco, disponivel_estoque) values
+('X-Burger Clássico', 'Hambúrgueres', 22.00, 50),
+('Batata Frita G', 'Acompanhamentos', 12.00, 40),
+('Combo Supremo', 'Combos', 45.00, 15),
+('Suco de Laranja 400ml', 'Bebidas', 8.00, 30),
+('Milkshake Ovomaltine', 'Sobremesas', 15.00, 20);
+
+UPDATE nome_tabela
+SET coluna = novo_valor
+WHERE condição;
+
+-- =========================================================================
+--                        EXERCÍCIOS
+-- =========================================================================
+
+-- 5. Atualize o preço do produto X-Burger Clássico para R$ 24.50.
+UPDATE cardapio set preco=24.50 where id=1;
+select*from cardapio
+
+-- 7. Atualize o preço do Combo Supremo para R$ 42.00.
+UPDATE cardapio set preco=42.00 where id=3;
+select*from cardapio
+
+-- 9. Atualize o preço e o estoque da Batata Frita G para 60 unidades.
+UPDATE cardapio set disponivel_estoque=60 where id=2;
+select*from cardapio
+
+-- 12. Mostre todos os dados e todas as colunas da tabela de cardápio.
+select*from cardapio
+
+--  (SELECT WHERE) - operadores lógicos: AND (E), OR (OU) e NOT (NÃO).
+
+-- 13. Selecione apenas o nome e o preço de todos os produtos cadastrados.
+-- 14. Exiba todos os dados dos produtos que pertencem à categoria 'Bebidas'.
+-- 15. Busque os produtos que custam mais caro que 15.00 reais.
+-- 16. Busque todos os produtos que tenham menos de 25 unidades no estoque .
+-- 17. Selecione os produtos que custam exatamente 12.00 reais.
+-- 18. Busque o nome e o estoque dos produtos que custam menos ou igual a 15.00 reais.
+-- 19. Mostre todos os produtos que têm mais de 30 unidades disponíveis no estoque (disponivel_estoque > 30).
+-- 20. Selecione todos os dados de produtos que NÃO pertencem à categoria 'Bebidas' (categoria != 'Bebidas').
