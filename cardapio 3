@@ -1,0 +1,89 @@
+-- Create (Criar)          → Comando INSERT
+-- Read (Ler/Consultar)    → Comando SELECT
+-- Update (Atualizar/Mudar) → Comando UPDATE
+-- Delete (Excluir/Apagar) → Comando DELETE
+
+create database burguer_3A
+default character SET utf8mb4
+collate utf8mb4_0900_ai_ci;
+use burguer_3A;
+
+create table if not exists cardapio (
+    id int auto_increment primary key,
+    nome varchar(50),
+    categoria varchar(30),
+    preco decimal(10,2),
+    disponivel_estoque int
+) default charset = utf8mb4;
+
+insert into cardapio (nome, categoria, preco, disponivel_estoque) values
+('X-Burger Clássico', 'Hambúrgueres', 22.00, 50),
+('Batata Frita G', 'Acompanhamentos', 12.00, 40),
+('Combo Supremo', 'Combos', 45.00, 15),
+('Suco de Laranja 400ml', 'Bebidas', 8.00, 30),
+('Milkshake Ovomaltine', 'Sobremesas', 15.00, 20);
+-- Atualizar dados
+UPDATE nome_tabela
+SET coluna = novo_valor
+WHERE condição;
+ 
+
+-- 13. Selecione apenas o nome e o preço de todos os produtos cadastrados.
+select nome, preco from cardapio;
+-- 14. Exiba todos os dados dos produtos que pertencem à categoria 'Bebidas'.
+select * from cardapio where categoria = 'bebidas';
+-- 15. Busque os produtos que custam mais caro que 15.00 reais.
+select * from cardapio where preco >15;
+-- 16. Busque todos os produtos que tenham menos de 25 unidades no estoque .
+select * from cardapio where disponivel_estoque <25;
+-- 17. Selecione os produtos que custam exatamente 12.00 reais.
+select * from cardapio where preco =12;
+-- 18. Busque o nome e o estoque dos produtos que custam menos ou igual a 15.00 reais.
+select * from cardapio where preco <=15.00 and disponivel_estoque >20;
+-- 19. Mostre todos os produtos que têm mais de 30 unidades disponíveis no estoque (disponivel_estoque > 30).
+select * from cardapio where disponivel_estoque >30;
+-- 20. Selecione todos os dados de produtos que NÃO pertencem à categoria 'Bebidas' (categoria != 'Bebidas').
+select * from cardapio where categoria != 'bebidas';
+
+create table if not exists cliente (
+    id int auto_increment primary key,
+    nome varchar(100),
+    email varchar(100),
+    cidade varchar(50),
+    total_pedidos int
+) default charset = utf8mb4;
+
+insert into cliente (nome, email, cidade, total_pedidos) values
+('Ana Beatriz Silva', 'ana.beatriz@email.com', 'Campo Mourão', 12),
+('Carlos Eduardo Oliveira', 'cadu.oliver@email.com', 'Maringá', 5),
+('Bruno Santos', 'bruno.santos@email.com', 'Campo Mourão', 22),
+('Amanda Costa', 'amanda.c@email.com', 'Londrina', 3),
+('Fernando Silva Pedrosa', 'fernando.sp@email.com', 'Cascavel', 18),
+('Ana Clara Mendes', 'ana.clara@email.com', 'Maringá', 7),
+('Carlos Augusto Lima', 'carlos.guto@email.com', 'Campo Mourão', 14),
+('Ana Júlia Rocha', 'ana.julia@email.com', 'Londrina', 2),
+('Carlos Henrique Souza', 'carlos.hs@email.com', 'Cascavel', 9),
+('Amanda Vieira', 'amanda.v@email.com', 'Campo Mourão', 11),
+('Bruno Alencar', 'bruno.alencar@email.com', 'Maringá', 6);
+
+
+-- ORDER BY (Ordenação): ordenar o resultado da sua consulta 
+-- Sintaxe: SELECT colunas FROM tabela ORDER BY coluna;
+-- 20. Exiba todos itens do cardapio ordenado por valor.
+select * from cardapio order by preco;
+-- 21. Mostre todos os clientes ordenados pelo nome em ordem alfabética (A a Z).
+
+-- 22. Exiba os clientes ordenados  ordem de mais pedidos.
+select*from cliente order by total_pedidos desc;
+
+-- LIKE Busca por nomes
+-- SELECT colunas FROM tabela WHERE coluna LIKE '%palavra%';
+
+-- 23. Busque todos os clientes cujo nome COMEÇA com Ana.
+select * from cliente where nome like '%ana%';
+-- 24. Selecione os clientes que possuem o sobrenome 'Silva' em qualquer parte do nome.
+select * from cliente where nome like '%silva%';
+-- 26. Mostre o nome e o total de pedidos dos clientes que moram em 'Campo Mourão'.
+select * from cliente where cidade like '%campo mourao%';
+-- 27. Busque os dados dos clientes que moram na cidade de 'Maringá'.
+select * from cliente where cidade like '%maringa%';
